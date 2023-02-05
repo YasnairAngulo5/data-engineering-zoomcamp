@@ -24,15 +24,18 @@ def clean(df= pd.DataFrame) -> pd.DataFrame:
     print(f"rows: {len(df)}")
     return df
 
-@task()
+@task(log_prints=True)
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out  locally as parquet file"""
     outdir = f'./data/{color}'
     if not os.path.exists(outdir):
+        print(f"creating directory {outdir}")
         os.mkdir(outdir)
 
     path      = Path(os.path.join(outdir, f"{dataset_file}.parquet"))
-
+    
+    print(f"File will be saved in {path}")
+    
     try :
         df.to_parquet(path, compression="gzip")
     except OSError as error :
