@@ -60,7 +60,7 @@ How many rows were processed by the script?
 
 - 88,019
 - 192,297
-- 88,605
+- 88,605 :white_check_mark:
 - 190,225
 
 
