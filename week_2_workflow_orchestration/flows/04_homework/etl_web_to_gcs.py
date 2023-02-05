@@ -27,6 +27,10 @@ def clean(df= pd.DataFrame) -> pd.DataFrame:
 @task(log_prints=True)
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out  locally as parquet file"""
+
+    path = Path(f"/data/{color}/{dataset_file}.parquet").mkdir(parents=True, exist_ok=True)
+    
+    ''''
     outdir = f'./data/{color}'
     if not os.path.exists(outdir):
         print(f"creating directory {outdir}")
@@ -35,12 +39,12 @@ def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     path      = Path(os.path.join(outdir, f"{dataset_file}.parquet"))
     
     print(f"File will be saved in {path}")
-    
+
     try :
         df.to_parquet(path, compression="gzip")
     except OSError as error :
         print(error)
-    
+    '''
     return path
 
 @flow()
