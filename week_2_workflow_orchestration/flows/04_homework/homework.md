@@ -91,7 +91,7 @@ How many rows were processed by the script?
 - `125,268`
 - `377,922`
 - `728,390`
-- `514,392`
+- `514,392` :white_check_mark:
 
 
 ## Question 6. Secrets
@@ -100,7 +100,7 @@ Prefect Secret blocks provide secure, encrypted storage in the database and obfu
 
 - 5
 - 6
-- 8
+- 8 :white_check_mark:
 - 10
 
 

@@ -137,6 +137,3 @@ dmypy.json
 *.csv
 *.gz
 *.json
-
-ny_taxi_postgres_data/
-data_pgadmin/

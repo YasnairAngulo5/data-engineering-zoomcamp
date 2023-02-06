@@ -20,26 +20,22 @@ def fetch(dataset_url: str) -> pd.DataFrame:
 def clean(df= pd.DataFrame) -> pd.DataFrame:
     """Fix dtype issues"""
     # Convert dates fiels to a datatime object
-    df.tpep_pickup_datetime  = pd.to_datetime(df.tpep_pickup_datetime)
-    df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
-    print(df.head(2))
-    print(f"columns: {df.dtypes}")
-    print(f"rows: {len(df)}")
+    for col in df.columns:
+        if 'datetime' in col:
+            df[col]  = pd.to_datetime(df[col])
     return df
 
 @task()
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out  locally as parquet file"""
-    outdir = f'./data/{color}'
-    if not os.path.exists(outdir):
-        os.mkdir(outdir)
-
-    path      = Path(os.path.join(outdir, f"{dataset_file}.parquet"))
-
+    
+    outdir = f'data/{color}'
+    path = Path(os.path.join(outdir, f"{dataset_file}.csv.gz")) #to work with parquet the extesion should be .parquet
     try :
-        df.to_parquet(path, compression="gzip")
+        df.to_csv(path) #to work with parquet: df.to_parquet(path, compression="gzip")
     except OSError as error :
         print(error)
+ 
     
     return path
 
@@ -47,7 +43,7 @@ def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
 def write_gcs(path: Path) -> None:
     """Uploading local parquet file to GCS"""
     gcs_block   = GcsBucket.load("zoom-gcs")
-    gcs_block.upload_from_path(from_path=path, to_path=path)
+    gcs_block.upload_from_path(from_path=path, to_path=path, timeout=120)
     return
 
 

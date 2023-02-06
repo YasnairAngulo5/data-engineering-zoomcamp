@@ -27,28 +27,28 @@ def clean(df= pd.DataFrame) -> pd.DataFrame:
 @task(log_prints=True)
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out  locally as parquet file"""
-
-    outdir = f'./data/{color}'
-    if not os.path.exists(outdir):
-        print(f"creating directory {outdir}")
-        os.mkdir(outdir)
-
-    path      = Path(os.path.join(outdir, f"{dataset_file}.parquet"))
-    
-    print(f"File will be saved in {path}")
-
+    '''
+    path_file = f"{dataset_file}.parquet"
+    path_dir  = Path(os.path.join(os.path.dirname(os.path.realpath(__file__)),f"data/{color}"))
+    path_dir.mkdir(parents=True, exist_ok=True)
+    path = Path(os.path.join(path_dir,path_file))
+    '''
+    path =  Path(os.path.join(os.path.dirname(os.path.realpath(__file__)),f"data/{color}/{dataset_file}.parquet"))
     try :
         df.to_parquet(path, compression="gzip")
+        print("File create at: ")
+        print(path)
     except OSError as error :
         print(error)
     
     return path
 
 @flow()
-def write_gcs(path: Path) -> None:
+def write_gcs(from_path: Path, color: str, dataset_file: str) -> None:
     """Uploading local parquet file to GCS"""
+    path_git    = Path(f"data/{color}/{dataset_file}.parquet")
     gcs_block   = GcsBucket.load("zoom-gcs")
-    gcs_block.upload_from_path(from_path=path, to_path=path, timeout=120)
+    gcs_block.upload_from_path(from_path=from_path, to_path=path_git, timeout=120)
     return
 
 @flow()
@@ -60,7 +60,7 @@ def etl_web_to_gcs(year: int, month: int, color: str) -> int:
     df              = fetch(dataset_url)
     df_clean        = clean(df)
     path            = write_local(df_clean, color, dataset_file)
-    write_gcs(path)
+    write_gcs(path, color, dataset_file)
     return len(df_clean)
 
 @flow(log_prints=True)
