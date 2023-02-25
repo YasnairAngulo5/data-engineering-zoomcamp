@@ -90,5 +90,5 @@ Create a dashboard with some tiles that you find interesting to explore the data
 
 - March
 - April
-- January
+- January  :white_check_mark:
 - December
