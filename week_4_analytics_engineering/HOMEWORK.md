@@ -30,7 +30,7 @@ Then
 
 Query:
 ```
-    SELECT COUNT(*) FROM `dtc-de-375507.dbt_yangulo.fact_trips` 
+    SELECT COUNT(*) FROM `dtc-de-375507.production.fact_trips` 
     WHERE EXTRACT(YEAR FROM pickup_datetime) IN (2019,2020)
 ```
 
@@ -59,7 +59,7 @@ Filter records with pickup time in year 2019.
 
 # Query
 ```
-    SELECT COUNT(*) FROM `dtc-de-375507.dbt_yangulo.stg_fhv_tripdata` 
+    SELECT COUNT(*) FROM `dtc-de-375507.production.stg_fhv_tripdata` 
     WHERE EXTRACT(YEAR FROM pickup_datetime ) = 2019
 ```
 
@@ -78,6 +78,17 @@ Run it via the CLI without limits (is_test_run: false) and filter records with p
 
 # Query
 ```
-    SELECT COUNT(*) FROM `dtc-de-375507.dbt_yangulo.fact_fhv_trips`
+    SELECT COUNT(*) FROM `dtc-de-375507.production.fact_fhv_trips`
     WHERE EXTRACT(YEAR FROM pickup_datetime) = 2019
 ```
+
+### Question 5: 
+
+**What is the month with the biggest amount of rides after building a tile for the fact_fhv_trips table?**
+
+Create a dashboard with some tiles that you find interesting to explore the data. One tile should show the amount of trips per month, as done in the videos for fact_trips, based on the fact_fhv_trips table.
+
+- March
+- April
+- January
+- December
