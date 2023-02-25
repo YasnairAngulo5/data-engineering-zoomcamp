@@ -92,3 +92,5 @@ Create a dashboard with some tiles that you find interesting to explore the data
 - April
 - January  :white_check_mark:
 - December
+
+![Screenshot 2023-02-25 at 15 03 05](https://user-images.githubusercontent.com/122770186/221361138-10ccda39-bdde-4ac9-adbb-3d85ac7860cd.png)
