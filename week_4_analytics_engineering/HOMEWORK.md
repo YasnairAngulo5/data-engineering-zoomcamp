@@ -1,5 +1,5 @@
 
-# Creation of `fhv_tripdata` table
+#### Creation of `fhv_tripdata` table
 ```
     CREATE OR REPLACE TABLE `dtc-de-375507.trips_data_all.fhv_tripdata` AS
     SELECT *
@@ -57,7 +57,7 @@ Filter records with pickup time in year 2019.
 - 53244696
 - 63244696
 
-# Query
+#### Query
 ```
     SELECT COUNT(*) FROM `dtc-de-375507.production.stg_fhv_tripdata` 
     WHERE EXTRACT(YEAR FROM pickup_datetime ) = 2019
@@ -76,7 +76,7 @@ Run it via the CLI without limits (is_test_run: false) and filter records with p
 - 32998722
 - 42998722
 
-# Query
+#### Query
 ```
     SELECT COUNT(*) FROM `dtc-de-375507.production.fact_fhv_trips`
     WHERE EXTRACT(YEAR FROM pickup_datetime) = 2019
