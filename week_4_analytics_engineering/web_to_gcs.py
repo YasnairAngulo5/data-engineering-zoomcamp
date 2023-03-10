@@ -1,11 +1,6 @@
-import io
 import os
-import requests
 import pandas as pd
-import pyarrow
 import logging
-from pathlib import Path
-import pyarrow.csv as pv
 import pyarrow.parquet as pq
 import pyarrow as pa
 from google.cloud import storage
@@ -72,6 +67,19 @@ table_schema_yellow = pa.schema(
 
 )
 
+table_schema_fhv = pa.schema(
+   [    
+        ('dispatching_base_num', pa.string()),
+        ('pickup_datetime', pa.timestamp('s')),
+        ('dropOff_datetime', pa.timestamp('s')),
+        ('PUlocationID', pa.int64()),
+        ('DOlocationID', pa.int64()),
+        ('SR_Flag', pa.int64()),
+        ('Affiliated_base_number', pa.string())
+    ]
+
+)
+
 def format_to_parquet(df: pd.DataFrame, service, src_file):
     
     table = pa.Table.from_pandas(df)
@@ -81,6 +89,9 @@ def format_to_parquet(df: pd.DataFrame, service, src_file):
     
     elif service == 'green':
         table = table.cast(table_schema_green)
+    
+    elif service == 'fhv':
+        table = table.cast(table_schema_fhv)
 
     pq.write_table(table, src_file.replace('.csv.gz', '.parquet'))
 
@@ -130,5 +141,5 @@ def web_to_gcs(year, service):
 #web_to_gcs('2019', 'green')
 #web_to_gcs('2020', 'green')
 #web_to_gcs('2019', 'yellow')
-web_to_gcs('2020', 'yellow')
-#web_to_gcs('2019', 'fhv')
+#web_to_gcs('2020', 'yellow')
+web_to_gcs('2019', 'fhv')

@@ -1,0 +1,11 @@
+.ipynb_checkpoints/
+ny_taxi_postgres_data/
+*.csv
+*.csv.gz
+data_pgadmin/
+.DS_Store
+services
+week_5_batch_processing/fhvhv/
+week_5_batch_processing/homework/fhvhv/2021/06
+week_5_batch_processing/code/lib
+*.jar

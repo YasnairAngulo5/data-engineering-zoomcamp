@@ -7,6 +7,7 @@
 **google_credentials.json
 **logs/
 **.env
+**.venv
 **__pycache__/
 .history
 **/ny_taxi_postgres_data/*
@@ -17,10 +18,14 @@ serving_dir
 **test.py
 **data
 *.prefectignore
-
+week_5_batch_processing/fhvhv/
+week_5_batch_processing/homework/fhvhv/2021/06
+service_account_info.json
 
 # Default .gitignore content added by dbt Cloud
 target/
 dbt_packages/
 logs/
 # end dbt Cloud content
+
+
